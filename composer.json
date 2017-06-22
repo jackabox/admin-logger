@@ -1,0 +1,23 @@
+{
+	"name": "jb/admin-logger",
+ 	"keywords": ["wordpress", "plugin", "orm", "eloquent", "sql", "framework"],
+    "homepage": "https://github.com/adtrak/admin-log",
+
+	"authors": [
+        {
+            "name": "Jack Whiting",
+            "email": "hi@jackwhiting.co.uk"
+        }
+    ],
+
+    "require": {
+        "getbilly/framework" : "0.2.*",
+		"bugsnag/bugsnag": "^3.0"
+    },
+
+	"autoload": {
+    	"psr-4": {
+			"Adtrak\\AdminLog\\": "app/"
+		}
+	}
+}
