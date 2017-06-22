@@ -1,6 +1,4 @@
-<?php 
-
-namespace MyPlugin;
+<?php namespace Adtrak\Logger;
 
 use Twig_Loader_Filesystem;
 use Twig_Environment;
@@ -11,13 +9,13 @@ class View
 {
 	public static $template;
 	public static $loader;
-	public static $twig; 
+	public static $twig;
 
 	public static function constructTwig()
 	{
 		self::$loader = new Twig_Loader_Filesystem();
 		self::$loader->addPath(Helper::get('views'));
-		
+
 		self::$twig = new Twig_Environment(self::$loader, self::environment());
 
 		if (defined('WP_DEBUG') && true === WP_DEBUG) {
@@ -25,7 +23,7 @@ class View
 		}
 
 		foreach(self::variables() as $key => $value) {
-			self::$twig->addGlobal($key, $value);	
+			self::$twig->addGlobal($key, $value);
 		}
 
 		foreach (self::functions() as $function) {
@@ -90,7 +88,7 @@ class View
 	 */
 	public static function render($template, $vals, $echo = true)
 	{
-		# Construct the twig 
+		# Construct the twig
 		self::constructTwig();
 
 		# Check whether we are echoing or returning

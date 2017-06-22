@@ -1,7 +1,6 @@
-<?php 
-namespace MyPlugin;
+<?php namespace Adtrak\Logger;
 
-class Helper 
+class Helper
 {
 
 	/**
@@ -15,7 +14,7 @@ class Helper
 	 * @var string
 	 */
 	protected static $base;
-	
+
 	/**
 	 * The config.php content
 	 * @var array
@@ -29,7 +28,7 @@ class Helper
 	{
 		self::$base = plugin_directory();
         self::$base = self::$base . '/' . basename(plugin_dir_url(__DIR__)) . '/';
-        
+
 		self::$config = @require self::$base . '/plugin.config.php';
         self::$booted = true;
 	}

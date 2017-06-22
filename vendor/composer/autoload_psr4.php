@@ -23,5 +23,5 @@ return array(
     'Carbon\\' => array($vendorDir . '/nesbot/carbon/src/Carbon'),
     'Bugsnag\\' => array($vendorDir . '/bugsnag/bugsnag/src'),
     'Billy\\Framework\\' => array($vendorDir . '/getbilly/framework/Framework'),
-    'Adtrak\\AdminLog\\' => array($baseDir . '/app'),
+    'Adtrak\\Logger\\' => array($baseDir . '/app'),
 );

@@ -1,5 +1,4 @@
-<?php
-namespace MyPlugin;
+<?php namespace Adtrak\Logger;
 
 use MyPlugin\Bugsnag;
 
