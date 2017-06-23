@@ -27,8 +27,10 @@ class LogController
 
         $postType = get_post_type_object(get_post_type($post));
         $postType = $postType->labels->singular_name;
+        $postTitle = $this->_getDraftOrTitle($post_id);
 
-        $description = "{$this->user->name} created {$postType} #{$post_id}.";
+
+        $description = "Created \"{$postTitle} (#{$post_id})\".";
 
         $log = new Log;
         $log->user_id = $this->user->ID;
@@ -46,19 +48,19 @@ class LogController
 
         switch ($post->post_status) {
             case 'trash':
-                $description = "{$this->user->name} moved \"{$postTitle} (#{$post_id})\" to the trash.";
+                $description = "Moved \"{$postTitle} (#{$post_id})\" to the trash.";
                 $type = "Trashed {$postType}";
                 break;
             case 'public':
-                $description = "{$this->user->name} published \"{$postTitle} (#{$post_id})\".";
+                $description = "Published \"{$postTitle} (#{$post_id})\".";
                 $type = "Published {$postType}";
                 break;
             case 'private':
-                $description = "{$this->user->name} made \"{$postTitle} (#{$post_id})\" private.";
+                $description = "Set (#{$post_id})\" to private.";
                 $type = "Updated {$postType}";
                 break;
             default:
-                $description = "{$this->user->name} made updates to \"{$postTitle} (#{$post_id})\".";
+                $description = "Updated \"{$postTitle} (#{$post_id})\".";
                 $type = "Updated {$postType}";
                 break;
         }
@@ -93,7 +95,7 @@ class LogController
         $log->user_id = $this->user->ID;
         $log->ip = $this->_findUserIP();
         $log->type = "Switched Theme";
-        $log->description = "{$this->user->name} switched theme to \"{$new_theme}\".";
+        $log->description = "Set \"{$new_theme}\" as active theme.";
         $log->save();
     }
 
@@ -113,10 +115,10 @@ class LogController
 
         if('deactivated_plugin' === current_filter()) {
             $type = 'Deactivated Plugin';
-            $desc = "{$this->user->name} deactivated \"{$plugin_data['Name']}\".";
+            $desc = "Dectivated \"{$plugin_data['Name']}\".";
         } else {
             $type = 'Activated Plugin';
-            $desc = "{$this->user->name} activated \"{$plugin_data['Name']}\".";
+            $desc = "Activated \"{$plugin_data['Name']}\".";
         }
 
         $log = new Log;
