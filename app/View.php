@@ -59,7 +59,8 @@ class View
 				'url' 					=> get_bloginfo('url'),
 				'stylesheet_directory' 	=> get_stylesheet_directory_uri(),
 				'title' 				=> get_bloginfo('name'),
-				'description' 			=> get_bloginfo('description')
+				'description' 			=> get_bloginfo('description'),
+                'admin_url'             => admin_url()
 			],
 			'plugin' => [
 				'directory'				=> plugin_dir_url(__DIR__)

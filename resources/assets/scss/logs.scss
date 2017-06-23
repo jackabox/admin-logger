@@ -1,1 +1,21 @@
 @import "adtrak/adtrak";
+
+
+.atk-table.atk-table__logger {
+    > thead > tr > th,
+    > tbody > tr > td {
+        padding: 0.8rem;
+    }
+}
+
+.al-th__date {
+    width: 80px;
+}
+
+.al-th__type {
+    width: 140px;
+}
+
+.al-th__ip {
+    width: 90px;
+}
