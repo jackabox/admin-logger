@@ -23,7 +23,7 @@ class AdminController {
 
     public function showLogs()
     {
-        $logs = Log::all();
+        $logs = Log::orderBy('created_at', 'DESC')->get();
 
         View::render('admin-logs.twig', [
             'logs' => $logs
