@@ -1,7 +1,7 @@
 {
-	"name": "jb/admin-logger",
+	"name": "adtrak/logger",
  	"keywords": ["wordpress", "plugin", "orm", "eloquent", "sql", "framework"],
-    "homepage": "https://github.com/adtrak/admin-log",
+    "homepage": "https://github.com/adtrak/logger",
 
 	"authors": [
         {

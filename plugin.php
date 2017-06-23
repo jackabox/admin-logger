@@ -1,8 +1,8 @@
 <?php
 /**
  * @wordpress-plugin
- * Plugin Name: 	Admin Log
- * Plugin URI: 		https://github.com/admin-log
+ * Plugin Name: 	Logger
+ * Plugin URI: 		https://github.com/adtrak/admin-logger
  * Description: 	Admin Logger.
  * Version: 		1.0.0b
  * Author: 			Jack Whiting
