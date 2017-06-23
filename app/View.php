@@ -75,7 +75,8 @@ class View
 			'wp_footer',
 			'wp_title',
 			'body_class',
-			'wp_nav_menu'
+			'wp_nav_menu',
+            'get_userdata'
 		];
 	}
 
