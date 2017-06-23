@@ -31,3 +31,10 @@ $loader->action([
 	'uses' 		=> [$logger, 'deletePost'],
     'priority'  => 10,
 ]);
+
+$loader->action([
+    'method'    => 'switch_theme',
+    'uses'      => [$logger, 'switchTheme'],
+    'priority'  => 10,
+    'args'      => 2
+]);

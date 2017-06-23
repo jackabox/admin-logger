@@ -90,6 +90,20 @@ class LogController
         }
     }
 
+    public function switchTheme($new_name, $new_theme)
+    {
+        $log = new Log;
+        $log->user_id = $this->user->ID;
+        $log->ip = $this->findUserIP();
+        $log->type = "Switched Theme";
+        $log->description = "<b>{$this->user->name}</b> switched theme to \"{$new_theme}\".";
+        $log->save();
+    }
+
+    /**
+     * HELPERS
+     */
+
     public function findUserIP()
     {
         return getenv('HTTP_CLIENT_IP')?:
