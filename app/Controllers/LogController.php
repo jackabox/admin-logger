@@ -28,11 +28,11 @@ class LogController
         $postType = get_post_type_object(get_post_type($post));
         $postType = $postType->labels->singular_name;
 
-        $description = "<b>{$this->user->name}</b> created {$postType} <b>#{$post_id}</b>.";
+        $description = "{$this->user->name} created {$postType} #{$post_id}.";
 
         $log = new Log;
         $log->user_id = $this->user->ID;
-        $log->ip = $this->findUserIP();
+        $log->ip = $this->_findUserIP();
         $log->type = "New {$postType}";
         $log->description = $description;
         $log->save();
@@ -42,29 +42,30 @@ class LogController
     {
         $postType = get_post_type_object(get_post_type($post));
         $postType = $postType->labels->singular_name;
+        $postTitle = $this->_getDraftOrTitle($post_id);
 
         switch ($post->post_status) {
             case 'trash':
-                $description = "<b>{$this->user->name}</b> moved {$postType} <b>#{$post_id}</b> to the trash.";
+                $description = "{$this->user->name} moved \"{$postTitle} (#{$post_id})\" to the trash.";
                 $type = "Trashed {$postType}";
                 break;
             case 'public':
-                $description = "<b>{$this->user->name}</b> published {$postType} <b>#{$post_id}</b>.";
+                $description = "{$this->user->name} published \"{$postTitle} (#{$post_id})\".";
                 $type = "Published {$postType}";
                 break;
             case 'private':
-                $description = "<b>{$this->user->name}</b> made {$postType} <b>#{$post_id}</b> private.";
+                $description = "{$this->user->name} made \"{$postTitle} (#{$post_id})\" private.";
                 $type = "Updated {$postType}";
                 break;
             default:
-                $description = "<b>{$this->user->name}</b> made updates to {$postType} <b>#{$post_id}</b>";
+                $description = "{$this->user->name} made updates to \"{$postTitle} (#{$post_id})\".";
                 $type = "Updated {$postType}";
                 break;
         }
 
         $log = new Log;
         $log->user_id = $this->user->ID;
-        $log->ip = $this->findUserIP();
+        $log->ip = $this->_findUserIP();
         $log->type = $type;
         $log->description = $description;
         $log->save();
@@ -79,9 +80,9 @@ class LogController
 
             $log = new Log;
             $log->user_id = $this->user->ID;
-            $log->ip = $this->findUserIP();
+            $log->ip = $this->_findUserIP();
             $log->type = "Deleted {$postType}";
-            $log->description = "<b>{$this->user->name}</b> deleted {$postType} <b>#{$post_id}</b>.";
+            $log->description = "{$this->user->name} deleted \"{$postType} #{$post_id}\".";
             $log->save();
         }
     }
@@ -90,9 +91,9 @@ class LogController
     {
         $log = new Log;
         $log->user_id = $this->user->ID;
-        $log->ip = $this->findUserIP();
+        $log->ip = $this->_findUserIP();
         $log->type = "Switched Theme";
-        $log->description = "<b>{$this->user->name}</b> switched theme to \"{$new_theme}\".";
+        $log->description = "{$this->user->name} switched theme to \"{$new_theme}\".";
         $log->save();
     }
 
@@ -100,9 +101,9 @@ class LogController
     {
         $log = new Log;
         $log->user_id = $user->ID;
-        $log->ip = $this->findUserIP();
+        $log->ip = $this->_findUserIP();
         $log->type = "Login";
-        $log->description = "<b>{$user_login}</b> logged in.";
+        $log->description = "{$user_login} logged in.";
         $log->save();
     }
 
@@ -112,27 +113,43 @@ class LogController
 
         if('deactivated_plugin' === current_filter()) {
             $type = 'Deactivated Plugin';
-            $desc = "<b>{$this->user->name}</b> deactivated <b>{$plugin_data['Name']}</b>.";
+            $desc = "{$this->user->name} deactivated \"{$plugin_data['Name']}\".";
         } else {
             $type = 'Activated Plugin';
-            $desc = "<b>{$this->user->name}</b> activated <b>{$plugin_data['Name']}</b>.";
+            $desc = "{$this->user->name} activated \"{$plugin_data['Name']}\".";
         }
 
         $log = new Log;
         $log->user_id = $this->user->ID;
-        $log->ip = $this->findUserIP();
+        $log->ip = $this->_findUserIP();
         $log->type = $type;
         $log->description = $desc;
         $log->save();
+    }
 
-        return;
+    public function coreUpdated($wp_version)
+    {
+        global $pagenow;
+
+        // Auto updated
+        if ($pagenow !== 'update-core.php')
+            $desc = 'WordPress Auto Updated';
+        else
+            $desc = 'WordPress Updated';
+
+        $log = new Log;
+        $log->user_id = $this->user->ID;
+        $log->ip = $this->_findUserIP();
+        $log->type = 'Core Update';
+        $log->description = $desc;
+        $log->save();
     }
 
     /**
      * HELPERS
      */
 
-    public function findUserIP()
+    public function _findUserIP()
     {
         $server_ip_keys = [
             'HTTP_CLIENT_IP',
@@ -152,5 +169,15 @@ class LogController
 
         // Fallback local ip.
         return '127.0.0.1';
+    }
+
+    public function _getDraftOrTitle()
+    {
+        $title = get_the_title($post);
+
+        if (empty($title))
+            return null;
+
+        return $title;
     }
 }
