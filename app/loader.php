@@ -48,3 +48,21 @@ $loader->action([
     'uses'      => [$logger, 'userLogin'],
     'args'      => 2
 ]);
+
+$loader->action([
+    'method'    => 'activated_plugin',
+    'uses'      => [$logger, 'activatedPlugin'],
+    'args'      => 10
+]);
+
+$loader->action([
+    'method'    => 'deactivated_plugin',
+    'uses'      => [$logger, 'activatedPlugin'],
+    'args'      => 10
+]);
+
+$loader->action([
+    'method'    => '_core_updated_successfully',
+    'uses'      => [$logger, 'coreUpdated'],
+    'args'      => 10
+]);

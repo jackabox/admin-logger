@@ -6,18 +6,7 @@ class LogController
 {
     private $user;
 
-    public function __construct()
-    {
-        // $this->addActions();
-
-        // $this->user = (object) [
-        //     'name' => get_current_user(),
-        //     'ID' => \get_current_user_id()
-        // ];
-        //
-        // $user = \wp_get_current_user();
-        // dd($user);
-    }
+    public function __construct() {}
 
     public function getUserData()
     {
@@ -117,17 +106,51 @@ class LogController
         $log->save();
     }
 
+    public function activatedPlugin($plugin, $network_wide)
+    {
+        $plugin_data = get_plugin_data(WP_PLUGIN_DIR . '/' . $plugin);
+
+        if('deactivated_plugin' === current_filter()) {
+            $type = 'Deactivated Plugin';
+            $desc = "<b>{$this->user->name}</b> deactivated <b>{$plugin_data['Name']}</b>.";
+        } else {
+            $type = 'Activated Plugin';
+            $desc = "<b>{$this->user->name}</b> activated <b>{$plugin_data['Name']}</b>.";
+        }
+
+        $log = new Log;
+        $log->user_id = $this->user->ID;
+        $log->ip = $this->findUserIP();
+        $log->type = $type;
+        $log->description = $desc;
+        $log->save();
+
+        return;
+    }
+
     /**
      * HELPERS
      */
 
     public function findUserIP()
     {
-        return getenv('HTTP_CLIENT_IP')?:
-                getenv('HTTP_X_FORWARDED_FOR')?:
-                getenv('HTTP_X_FORWARDED')?:
-                getenv('HTTP_FORWARDED_FOR')?:
-                getenv('HTTP_FORWARDED')?:
-                getenv('REMOTE_ADDR');
+        $server_ip_keys = [
+            'HTTP_CLIENT_IP',
+            'HTTP_X_FORWARDED_FOR',
+            'HTTP_X_FORWARDED',
+            'HTTP_X_CLUSTER_CLIENT_IP',
+            'HTTP_FORWARDED_FOR',
+            'HTTP_FORWARDED',
+            'REMOTE_ADDR',
+        ];
+
+        foreach ($server_ip_keys as $key) {
+            if (isset( $_SERVER[ $key ]) && filter_var($_SERVER[ $key ], FILTER_VALIDATE_IP)) {
+                return $_SERVER[ $key ];
+            }
+        }
+
+        // Fallback local ip.
+        return '127.0.0.1';
     }
 }
