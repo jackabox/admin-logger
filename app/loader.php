@@ -13,6 +13,11 @@ $loader->action([
 $logger = new Controllers\LogController;
 
 $loader->action([
+	'method' 	=> 'admin_init',
+	'uses' 		=> [$logger, 'getUserData']
+]);
+
+$loader->action([
 	'method' 	=> 'save_post',
 	'uses' 		=> [$logger, 'savePost'],
     'priority'  => 90,
@@ -29,12 +34,17 @@ $loader->action([
 $loader->action([
 	'method' 	=> 'delete_post',
 	'uses' 		=> [$logger, 'deletePost'],
-    'priority'  => 10,
 ]);
 
 $loader->action([
     'method'    => 'switch_theme',
     'uses'      => [$logger, 'switchTheme'],
-    'priority'  => 10,
+    'args'      => 2
+]);
+
+
+$loader->action([
+    'method'    => 'wp_login',
+    'uses'      => [$logger, 'userLogin'],
     'args'      => 2
 ]);

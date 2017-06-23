@@ -10,17 +10,24 @@ class LogController
     {
         // $this->addActions();
 
-        $this->user = (object) [
-            'name' => get_current_user(),
-            'ID' => \get_current_user_id()
-        ];
-
-        // dd($this->user);
+        // $this->user = (object) [
+        //     'name' => get_current_user(),
+        //     'ID' => \get_current_user_id()
+        // ];
+        //
+        // $user = \wp_get_current_user();
+        // dd($user);
     }
 
-    public function addActions()
+    public function getUserData()
     {
-        // add_action('save_post', [$this, 'savePost'], 5, 3);
+        if (is_user_logged_in()) {
+            $user = wp_get_current_user();
+            $this->user = (object) [
+                'name' => $user->data->user_login,
+                'ID'   => $user->ID
+            ];
+        }
     }
 
     public function savePost($post_id, $post)
@@ -97,6 +104,16 @@ class LogController
         $log->ip = $this->findUserIP();
         $log->type = "Switched Theme";
         $log->description = "<b>{$this->user->name}</b> switched theme to \"{$new_theme}\".";
+        $log->save();
+    }
+
+    public function userLogin($user_login, $user)
+    {
+        $log = new Log;
+        $log->user_id = $user->ID;
+        $log->ip = $this->findUserIP();
+        $log->type = "Login";
+        $log->description = "<b>{$user_login}</b> logged in.";
         $log->save();
     }
 
