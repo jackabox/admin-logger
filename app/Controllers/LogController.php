@@ -30,7 +30,7 @@ class LogController
         $postTitle = $this->_getDraftOrTitle($post_id);
 
 
-        $description = "Created \"{$postTitle} (#{$post_id})\".";
+        $description = "Created <b>{$postTitle} (#{$post_id})</b>.";
 
         $log = new Log;
         $log->user_id = $this->user->ID;
@@ -48,19 +48,19 @@ class LogController
 
         switch ($post->post_status) {
             case 'trash':
-                $description = "Moved \"{$postTitle} (#{$post_id})\" to the trash.";
+                $description = "Moved <b>{$postTitle} (#{$post_id})</b> to the trash.";
                 $type = "Trashed {$postType}";
                 break;
             case 'public':
-                $description = "Published \"{$postTitle} (#{$post_id})\".";
+                $description = "Published <b>{$postTitle} (#{$post_id})</b>.";
                 $type = "Published {$postType}";
                 break;
             case 'private':
-                $description = "Set (#{$post_id})\" to private.";
+                $description = "Set (#{$post_id})</b> to private.";
                 $type = "Updated {$postType}";
                 break;
             default:
-                $description = "Updated \"{$postTitle} (#{$post_id})\".";
+                $description = "Updated <b>{$postTitle} (#{$post_id})</b>.";
                 $type = "Updated {$postType}";
                 break;
         }
@@ -84,7 +84,7 @@ class LogController
             $log->user_id = $this->user->ID;
             $log->ip = $this->_findUserIP();
             $log->type = "Deleted {$postType}";
-            $log->description = "{$this->user->name} deleted \"{$postType} #{$post_id}\".";
+            $log->description = "{$this->user->name} deleted </b>{$postType} #{$post_id}<b>.";
             $log->save();
         }
     }
@@ -95,7 +95,7 @@ class LogController
         $log->user_id = $this->user->ID;
         $log->ip = $this->_findUserIP();
         $log->type = "Switched Theme";
-        $log->description = "Set \"{$new_theme}\" as active theme.";
+        $log->description = "Set <b>{$new_theme}</b> as active theme.";
         $log->save();
     }
 
@@ -115,10 +115,10 @@ class LogController
 
         if('deactivated_plugin' === current_filter()) {
             $type = 'Deactivated Plugin';
-            $desc = "Dectivated \"{$plugin_data['Name']}\".";
+            $desc = "Dectivated <b>{$plugin_data['Name']}</b>.";
         } else {
             $type = 'Activated Plugin';
-            $desc = "Activated \"{$plugin_data['Name']}\".";
+            $desc = "Activated <b>{$plugin_data['Name']}</b>.";
         }
 
         $log = new Log;
