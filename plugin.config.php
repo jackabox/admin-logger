@@ -5,7 +5,7 @@ return [
 	/**
      * The version constraint.
      */
-    'version' => '1.0.0',
+    'version' => '1.0.1',
 
     /**
      * The asset path.

@@ -13,7 +13,8 @@ class AdminController {
 
     public function menu()
     {
-        \add_menu_page(
+        \add_submenu_page(
+            'tools.php',
             'Logs',
             'Logs',
             'manage_options',
