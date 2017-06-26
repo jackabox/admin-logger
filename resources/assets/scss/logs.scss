@@ -19,3 +19,22 @@
 .al-th__ip {
     width: 90px;
 }
+
+form.al-filters {
+    display: flex;
+    margin-bottom: 15px;
+
+    div {
+        width: 150px;
+        margin-right: 10px;
+    }
+
+    label, select {
+        width: 100%;
+        display: block;
+    }
+
+    .atk-button {
+        padding: 9px 20px
+    }
+}

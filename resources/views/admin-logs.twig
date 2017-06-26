@@ -3,25 +3,33 @@
 		<h1>Logs</h1>
 	</header>
 
-    <form action="" method="GET">
-        <label>Filter by User</label>
-        <select name="filter_user">
-            <option value="">All</option>
-            {% for user in users %}
-                <option {% if user.user == filters.user %}selected{% endif %} value="{{ user.user }}">{{ get_userdata(user.user).user_nicename }}</option>
-            {% endfor %}
-        </select>
+    <form action=""  class="al-filters atk-form" method="GET">
+        <div>
+            <label>Filter by User</label>
+            <select name="filter_user">
+                <option value="">All</option>
+                {% for user in users %}
+                    <option {% if user.user == filters.user %}selected{% endif %} value="{{ user.user }}">{{ get_userdata(user.user).user_nicename }}</option>
+                {% endfor %}
+            </select>
+        </div>
 
-        <label>Filter by Type</label>
-        <select name="filter_type">
-            <option value="">All</option>
-            {% for type in types %}
-                <option {% if type.type == filters.type %}selected{% endif %}>{{ type.type }}</option>
-            {% endfor %}
-        </select>
+        <div>
+            <label>Filter by Type</label>
+            <select name="filter_type">
+                <option value="">All</option>
+                {% for type in types %}
+                    <option {% if type.type == filters.type %}selected{% endif %}>{{ type.type }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label>&nbsp;</label>
+            <button class="atk-button atk-button--orange" type="submit">Filter</button>
+        </div>
 
         <input type="hidden" name="page" value="{{ filters.page }}">
-        <button type="submit">Filter</button>
     </form>
 
 	{% if logs is not empty %}
