@@ -115,7 +115,7 @@ class LogController
 
         if('deactivated_plugin' === current_filter()) {
             $type = 'Deactivated Plugin';
-            $desc = "Dectivated <b>\"{$plugin_data['Name']}\"</b>.";
+            $desc = "Deactivated <b>\"{$plugin_data['Name']}\"</b>.";
         } else {
             $type = 'Activated Plugin';
             $desc = "Activated <b>\"{$plugin_data['Name']}\"</b>.";
@@ -173,7 +173,7 @@ class LogController
         return '127.0.0.1';
     }
 
-    public function _getDraftOrTitle()
+    public function _getDraftOrTitle($post)
     {
         $title = get_the_title($post);
 

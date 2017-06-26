@@ -2,6 +2,8 @@
 
 /** @var \Billy\Framework\Loader $loader */
 
+
+$version = get_option('al_version', false);
 $admin = new Controllers\AdminController;
 
 $loader->action([
@@ -42,18 +44,19 @@ $loader->action([
     'args'      => 2
 ]);
 
-
 $loader->action([
     'method'    => 'wp_login',
     'uses'      => [$logger, 'userLogin'],
     'args'      => 2
 ]);
 
-$loader->action([
-    'method'    => 'activated_plugin',
-    'uses'      => [$logger, 'activatedPlugin'],
-    'args'      => 10
-]);
+if ($version !== false) {
+    $loader->action([
+        'method'    => 'activated_plugin',
+        'uses'      => [$logger, 'activatedPlugin'],
+        'args'      => 10
+    ]);
+}
 
 $loader->action([
     'method'    => 'deactivated_plugin',
