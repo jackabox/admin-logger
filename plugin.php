@@ -4,7 +4,7 @@
  * Plugin Name: 	Admin Logger
  * Plugin URI: 		https://github.com/adtrak/admin-logger
  * Description: 	Tracks login, theme changes, plugin changes and post/page updates.
- * Version: 		1.0.3
+ * Version: 		1.0.4
  * Author: 			Jack Whiting
  * Author URI: 		https://jackwhiting.co.uk
  * License: 		GPL-2.0+

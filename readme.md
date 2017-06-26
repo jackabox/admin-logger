@@ -8,5 +8,6 @@ A handy little logging function which will track a few handy things in WordPress
 - updating pages
 - updating posts
 - updating custom post types
+- creation of new users
 
 All logs are stored in the *Tools > Logs*. They're also filterable by User/Type.
