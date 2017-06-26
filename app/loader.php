@@ -69,3 +69,8 @@ $loader->action([
     'uses'      => [$logger, 'coreUpdated'],
     'args'      => 10
 ]);
+
+$loader->action([
+    'method'    => 'user_register',
+    'uses'      => [$logger, 'userCreated']
+]);

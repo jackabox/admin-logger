@@ -147,10 +147,19 @@ class LogController
         $log->save();
     }
 
+    public function userCreated($user_id)
+    {
+        $log = new Log;
+        $log->user_id = $this->user->ID;
+        $log->ip = $this->_findUserIP();
+        $log->type = 'Created User';
+        $log->description = 'Created User "<b>' . $_POST['user_login'] . '</b>"';
+        $log->save();
+    }
+
     /**
      * HELPERS
      */
-
     public function _findUserIP()
     {
         $server_ip_keys = [
