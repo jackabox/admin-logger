@@ -12,7 +12,8 @@
 
     "require": {
         "getbilly/framework" : "0.2.*",
-		"bugsnag/bugsnag": "^3.0"
+		"bugsnag/bugsnag": "^3.0",
+		"yahnis-elsts/plugin-update-checker": "^4.1"
     },
 
 	"autoload": {

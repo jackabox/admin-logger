@@ -1092,5 +1092,52 @@
             "logging",
             "tracking"
         ]
+    },
+    {
+        "name": "yahnis-elsts/plugin-update-checker",
+        "version": "v4.1",
+        "version_normalized": "4.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/YahnisElsts/plugin-update-checker.git",
+            "reference": "a3f314b052c69b90abc3195738c304a3b50f73f5"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/YahnisElsts/plugin-update-checker/zipball/a3f314b052c69b90abc3195738c304a3b50f73f5",
+            "reference": "a3f314b052c69b90abc3195738c304a3b50f73f5",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.2.0"
+        },
+        "time": "2017-04-07 12:58:40",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "plugin-update-checker.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Yahnis Elsts",
+                "email": "whiteshadow@w-shadow.com",
+                "homepage": "http://w-shadow.com/",
+                "role": "Developer"
+            }
+        ],
+        "description": "A custom update checker for WordPress plugins and themes. Useful if you can't host your plugin in the official WP repository but still want it to support automatic updates.",
+        "homepage": "https://github.com/YahnisElsts/plugin-update-checker/",
+        "keywords": [
+            "automatic updates",
+            "plugin updates",
+            "theme updates",
+            "wordpress"
+        ]
     }
 ]
