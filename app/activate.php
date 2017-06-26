@@ -2,8 +2,9 @@
 /** @var  \Billy\Framework\Enqueue $enqueue */
 
 use Illuminate\Database\Capsule\Manager as Capsule;
+use Adtrak\Logger\Helper;
 
-$version = false;
+$version = get_option('al_version');
 
 if ($version === false) {
     if(! Capsule::schema()->hasTable('al_logs')) {
@@ -17,4 +18,6 @@ if ($version === false) {
             $table->timestamps();
         });
     }
+
+    add_option('al_version', Helper::get('version'));
 }
