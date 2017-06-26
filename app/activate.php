@@ -14,7 +14,7 @@ if ($version === false) {
             $table->string('type', 225)->nullable(true);
             $table->string('ip', 225);
             $table->integer('user_id')->unsigned();
-		    $table->foreign('user_id')->references('ID')->on('users');
+		    // $table->foreign('user_id')->references('ID')->on('users');
             $table->timestamps();
         });
     }
